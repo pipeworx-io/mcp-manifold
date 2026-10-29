@@ -1,0 +1,68 @@
+[
+  {
+    "name": "search_markets",
+    "description": "Search Manifold Markets prediction markets by topic or question text. Returns markets with current probability (for binary), trading volume, liquidity, bettor count, and resolution status. Manifold is a play-money venue with tens of thousands of user-created markets on any topic. Keyless.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "string",
+          "description": "Topic or question text to search for, e.g. \"2026 election\", \"AGI\", \"Bitcoin 100k\"."
+        },
+        "filter": {
+          "type": "string",
+          "description": "Market state filter: all | open | closed | resolved. Default \"open\"."
+        },
+        "sort": {
+          "type": "string",
+          "description": "Sort order: score | newest | liquidity | most-popular. Default \"score\"."
+        },
+        "contract_type": {
+          "type": "string",
+          "description": "Market type filter: ALL | BINARY | MULTIPLE_CHOICE. Default \"ALL\"."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max markets to return (default 10, max 25)."
+        }
+      },
+      "required": [
+        "term"
+      ]
+    }
+  },
+  {
+    "name": "get_market",
+    "description": "Get full detail for a single Manifold market by its URL slug or id. Provide exactly one of slug/id. For multiple-choice markets, returns each answer with its probability (top 12). Includes plain-text description, creator, volume, liquidity, and resolution. Keyless.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string",
+          "description": "Market URL slug — the part after manifold.markets/{user}/, e.g. \"who-will-win-the-2026-california-gu\"."
+        },
+        "id": {
+          "type": "string",
+          "description": "Market id, e.g. \"KmbNYfuOrUnI1w1GSHdb\"."
+        }
+      }
+    }
+  },
+  {
+    "name": "top_markets",
+    "description": "Most-active open Manifold markets right now — a live attention/demand signal for what the prediction-market crowd is trading. Optionally narrow to a topic. Returns compact market records sorted by popularity. Keyless.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "number",
+          "description": "Max markets to return (default 15, max 25)."
+        },
+        "term": {
+          "type": "string",
+          "description": "Optional topic to narrow to, e.g. \"politics\", \"AI\"."
+        }
+      }
+    }
+  }
+]
